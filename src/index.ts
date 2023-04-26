@@ -7,9 +7,6 @@ AppDataSource.initialize().then(() => {
 
 	app.use(express.json())
 
-    //app.get('/', (req,res)=>{
-    //    return res.json('tudo certo')
-    //})
 	app.use(routes)
 
 	return app.listen(process.env.PORT)

@@ -19,9 +19,9 @@ export interface ResultCustomer {
 
 const CustomerRepository = AppDataSource.getRepository(Customer).extend({
 
-    async createBarber(barber: CreateCustomer): Promise< ResultCustomer | boolean> {
+    async createCustomer(customer: CreateCustomer): Promise< ResultCustomer | boolean> {
         try{
-            const result = this.create(barber)
+            const result = this.create(customer)
             await this.save(result)
             return result
         }catch(error){

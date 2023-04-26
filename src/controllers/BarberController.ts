@@ -14,8 +14,8 @@ import bcrypt from 'bcrypt';
                 return res.status(400).json({massage: 'email already used'})
             }
 
-            //testar essa parte se ta funcoinano
             const hashedPassword = await bcrypt.hash(password,12);
+            
             let newBarber ;
             if (hashedPassword){
                 newBarber =  await BarberRepository.createBarber({email, password: hashedPassword, ...data})

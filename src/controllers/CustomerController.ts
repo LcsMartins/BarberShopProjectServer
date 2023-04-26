@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import  CustomerRepository  from '../repositories/CustomerRepository'
+import bcrypt from 'bcrypt';
 
 class CustomerController {
 
@@ -12,13 +13,17 @@ class CustomerController {
             if (emailUsed){
                 return res.status(400).json({massage: 'email already used'})
             }
-
-			const newCustomer =  await CustomerRepository.createBarber({email, password, ...data})
-
+            
+            const hashedPassword = await bcrypt.hash(password,12);
+            
+            let newCustomer ;
+            if (hashedPassword){
+                newCustomer =  await CustomerRepository.createCustomer({email, password: hashedPassword, ...data})
+            }
+			 
 			if (!newCustomer){
 				return res.status(400).json({massage: 'wrong parameters'})
 			}
-			console.log("barberr", newCustomer)
 			return res.status(201).json(newCustomer)
 
 		} catch (error) {
